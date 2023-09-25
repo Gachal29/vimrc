@@ -79,6 +79,35 @@ set softtabstop=2
 " ファイル内にあるタブ文字の表示幅
 set tabstop=2
 
+" Cプログラムファイルの自動インデントを始める
+set cindent
+
+" 新しい行を作ったときに高度な自動インデントを行う
+set smarttab
+
+" 改行時に前の行のインデントを計測
+set autoindent
+
+" 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
+set smartindent
+
+if has("autocmd")
+  filetype plugin on
+  filetype indent on
+
+  autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
+  autocmd FileType html       setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
+  autocmd FileType java       setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType json       setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType css        setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType scss       setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType sass       setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType typescript setlocal sw=2 sts=2 ts=2 et
+endif
+
 " ツールバーを非表示にする
 set guioptions-=T
 
@@ -93,9 +122,6 @@ set guioptions+=R
 
 " 対応する括弧を強調表示
 set showmatch
-
-" 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
-set smartindent
 
 " スワップファイルを作成しない
 set noswapfile
