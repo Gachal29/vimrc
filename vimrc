@@ -88,7 +88,6 @@ endif
 
 Plug 'vim-jp/vimdoc-ja'
 Plug 'preservim/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
 
@@ -102,6 +101,7 @@ augroup nerdtree_refresh
   autocmd!
   autocmd BufWritePost,BufAdd * silent! NERDTreeRefreshRoot
   autocmd FocusGained * silent! NERDTreeRefreshRoot
+  autocmd TabNew * silent! NERDTreeMirror
 augroup END
 
 # Fugitive
@@ -246,7 +246,7 @@ nmap <silent> <Esc><Esc> :<C-u>nohlsearch<CR><Esc>
 g:mapleader = "\<Space>"
 
 # NERDTreeを Space -> e で開く
-nnoremap <Leader>e :NERDTreeTabsToggle<CR><C-w>=
+nnoremap <Leader>e :NERDTreeToggle<CR><C-w>=
 
 # Claude Code
 nnoremap <Leader>c  <Nop>
