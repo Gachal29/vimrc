@@ -10,8 +10,6 @@ set showtabline=2 # タブライン
 set wrap          # 長い行を折り返す
 set cmdheight=2   # メッセージ表示欄を2行確保
 set display=lastline  # 最後の行を省略しない
-set lines=999 columns=999
-winpos 0 0
 
 # Status Bar Styles
 set laststatus=2
@@ -27,7 +25,6 @@ set statusline+=\ %l/%L               # 現在行/総行数
 # Color Styles
 syntax enable
 set showmatch     # 対応する括弧をハイライト
-colorscheme desert
 
 # Edit
 set expandtab     # タブをスペースに変換
@@ -35,7 +32,6 @@ set tabstop=2     # タブ幅
 set shiftwidth=2  # インデント幅
 set autoindent    # 自動インデント
 set smartindent   # 構文に応じたインデント
-set virtualedit   # 矩形選択時に仮想編集を有効化
 
 # Search
 set ignorecase  # 大文字小文字を区別しない
@@ -59,7 +55,7 @@ augroup END
 # Other
 set clipboard=unnamed   # OSのクリップボードと共有
 set guioptions+=a       # yでコピーしたときクリップボードに入る
-set virtualedit=block   # vimの短形選択で文字がなくても右へ進める
+set virtualedit=block   # 矩形選択時に仮想編集を有効化
 set noerrorbells        # エラー時にビープを鳴らさない
 set encoding=utf-8      # Vim内の文字コードをUTF-8にする
 set fileencodings=utf-8,sjis,cp932
@@ -274,11 +270,18 @@ if has('gui_running')
   set guicursor=n:block-blinkwait700-blinkon400-blinkoff250,i:ver25-blinkon0-blinkoff0,r:hor20
   # カーソル色: desert のコメント色 (#6dceeb) より少し深い青
   highlight Cursor guifg=#333333 guibg=#5aadde
+
+  set lines=999 columns=999
+  winpos 0 0
+
+  colorscheme desert
 else
   # ターミナルVim (DECSCUSR エスケープシーケンス)
   &t_EI = "\e[1 q"  # ノーマルモード: 点滅ブロック
   &t_SI = "\e[6 q"  # 挿入モード: 非点滅縦棒
   &t_SR = "\e[4 q"  # 置換モード: 非点滅下線
+
+  colorscheme habamax 
 endif
 
 if has('win32') || has('win64')
