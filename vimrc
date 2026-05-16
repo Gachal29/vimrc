@@ -13,8 +13,8 @@ set display=lastline  # 最後の行を省略しない
 
 # Status Bar Styles
 set laststatus=2
-set statusline=[%{exists('*FugitiveHead')?FugitiveHead():''}]
-set statusline+=\ %f
+set statusline=%{exists('*FugitiveHead')&&FugitiveHead()!=''?'['.FugitiveHead().']':''}
+set statusline+=\ %t
 set statusline+=%m
 set statusline+=%r
 set statusline+=%=
@@ -30,6 +30,7 @@ set showmatch     # 対応する括弧をハイライト
 set expandtab     # タブをスペースに変換
 set tabstop=2     # タブ幅
 set shiftwidth=2  # インデント幅
+set softtabstop=2
 set autoindent    # 自動インデント
 set smartindent   # 構文に応じたインデント
 
@@ -66,9 +67,11 @@ set fileformats=unix,dos,mac
 # Languages
 # --------------------------------------------------------------------------------
 
-augroup python_settings
+augroup language_settings
   autocmd!
-  autocmd FileType python setlocal tabstop=4 shiftwidth=4
+  autocmd FileType python   setlocal tabstop=4 shiftwidth=4 softtabstop=4
+  autocmd FileType markdown setlocal tabstop=2 shiftwidth=2 softtabstop=2
+  autocmd FileType claude   setlocal statusline=%{''}
 augroup END
 
 
@@ -128,6 +131,7 @@ def! g:ToggleClaude()
   else
     botright vertical terminal claude
     vertical resize 120
+    setlocal filetype=claude
     claude_term_buf = bufnr('%')
     claude_term_win = win_getid()
   endif
@@ -254,8 +258,6 @@ nnoremap <Leader>g  <Nop>
 nnoremap <Leader>gl <Cmd>call g:ToggleGitLog()<CR>
 vnoremap <Leader>cs <Cmd>call g:SendSelectionToClaude()<CR>
 
-# C-[ でターミナルモードからノーマルモードへ切り替え
-tnoremap <C-[> <C-W>N
 
 
 # --------------------------------------------------------------------------------
